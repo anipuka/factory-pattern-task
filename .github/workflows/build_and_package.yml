@@ -20,7 +20,6 @@ jobs:
         
     - name: Build and install Google Test
       run: |
-        # Новый способ установки GTest в Ubuntu 22.04
         sudo apt-get install -y libgtest-dev
         cd /usr/src/googletest
         sudo cmake .
@@ -29,15 +28,26 @@ jobs:
         sudo cp -r googletest/include/gtest /usr/include
         sudo cp -r googlemock/include/gmock /usr/include
         
+    - name: Clean build directory
+      run: |
+        rm -rf build
+        mkdir build
+        
     - name: Configure CMake
-      run: cmake -B build -DCMAKE_BUILD_TYPE=Release
+      run: |
+        cd build
+        cmake .. -DCMAKE_BUILD_TYPE=Release
       
     - name: Build
-      run: cmake --build build --config Release
+      run: |
+        cd build
+        cmake --build . --config Release
       
     - name: Run tests
-      run: cd build && ctest --output-on-failure
-      
+      run: |
+        cd build
+        ctest --output-on-failure
+        
     - name: Create DEB package
       run: |
         cd build
