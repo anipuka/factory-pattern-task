@@ -2,9 +2,9 @@ name: Build and Package
 
 on:
   push:
-    branches: [master]
+    branches: [ master ]
   pull_request:
-    branches: [master]
+    branches: [ master ]
 
 jobs:
   build:
@@ -16,72 +16,42 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y \
-          build-essential \
-          cmake \
-          libgtest-dev \
-          dpkg-dev \
-          debhelper
+        sudo apt-get install -y build-essential cmake libgtest-dev
         
-    - name: Build and Install GTest
+    - name: Build Google Test
       run: |
-        cd /usr/src/googletest
-        sudo cmake -B build -DCMAKE_BUILD_TYPE=Release
-        sudo cmake --build build
-        sudo cmake --install build --prefix /usr/local
-        sudo ldconfig
+        cd /usr/src/gtest
+        sudo cmake CMakeLists.txt
+        sudo make
+        sudo cp *.a /usr/lib
         
-    - name: Clean and Configure CMake
-      run: |
-        rm -rf build package
-        mkdir -p build
-        cd build
-        cmake .. -DCMAKE_BUILD_TYPE=Release
+    - name: Configure CMake
+      run: cmake -B build -DCMAKE_BUILD_TYPE=Release
+      
+    - name: Build
+      run: cmake --build build --config Release
+      
+    - name: Run tests
+      run: cd build && ctest --output-on-failure
+      
+    - name: Install CPack
+      run: sudo apt-get install -y cmake
         
-    - name: Build Project
-      run: |
-        cd build
-        cmake --build . --config Release --parallel 2
-        
-    - name: Run Tests
+    - name: Create DEB package
       run: |
         cd build
-        ctest --output-on-failure
+        cpack -G DEB
         
-    - name: Prepare Package Structure
-      run: |
-        mkdir -p package/usr/bin
-        mkdir -p package/usr/lib
-        cp build/character_demo package/usr/bin/
-        cp build/libcharacter_factory.a package/usr/lib/
-        
-        mkdir -p package/DEBIAN
-        cat <<'EOF' > package/DEBIAN/control
-Package: factory-pattern
-Version: 1.0-$(date +%Y%m%d%H%M)
-Section: base
-Priority: optional
-Architecture: amd64
-Maintainer: anipuka <annakupina2006@yandex.ru>
-Description: Factory Pattern Example Implementation
-EOF
-        
-    - name: Build DEB Package
-      run: |
-        dpkg-deb --build package factory-pattern.deb
-        
-    - name: Upload Artifact
+    - name: Upload artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: factory-pattern-package
-        path: factory-pattern.deb
+        name: factory-pattern-deb
+        path: build/*.deb
         
     - name: Create Release
       if: github.ref == 'refs/heads/master'
       uses: softprops/action-gh-release@v1
       with:
-        files: factory-pattern.deb
-        tag_name: v1.0-$(date +%Y%m%d%H%M)
-        body: "Automatic build of factory pattern implementation"
+        files: build/*.deb
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
