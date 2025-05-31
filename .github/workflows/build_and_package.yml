@@ -56,7 +56,7 @@ jobs:
         cp build/libcharacter_factory.a package/usr/lib/
         
         mkdir -p package/DEBIAN
-        cat > package/DEBIAN/control <<'EOF'
+        cat <<'EOF' > package/DEBIAN/control
 Package: factory-pattern
 Version: 1.0-$(date +%Y%m%d%H%M)
 Section: base
