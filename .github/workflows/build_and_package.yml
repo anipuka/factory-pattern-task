@@ -18,31 +18,22 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y build-essential cmake libgtest-dev googletest
         
-    - name: Build and install Google Test
+    - name: Build Google Test
       run: |
         sudo apt-get install -y libgtest-dev
         cd /usr/src/googletest
         sudo cmake .
         sudo make
         sudo cp lib/*.a /usr/lib
-        sudo cp -r googletest/include/gtest /usr/include
-        sudo cp -r googlemock/include/gmock /usr/include
         
-    - name: Clean and prepare build directory
-      run: |
-        rm -rf build
-        mkdir build
-        
+    - name: Clean build directory
+      run: rm -rf build || true
+      
     - name: Configure CMake
       run: |
+        mkdir -p build
         cd build
-        cmake .. \
-          -DCMAKE_BUILD_TYPE=Release \
-          -DCPACK_PACKAGE_NAME=factory-pattern \
-          -DCPACK_PACKAGE_VERSION=1.0.0 \
-          -DCPACK_PACKAGE_VENDOR="Your Name" \
-          -DCPACK_DEBIAN_PACKAGE_MAINTAINER="Maintainer <maintainer@example.com>" \
-          -DCPACK_DEBIAN_PACKAGE_DEPENDS="libc6 (>= 2.31)"
+        cmake .. -DCMAKE_BUILD_TYPE=Release
       
     - name: Build project
       run: |
@@ -57,7 +48,8 @@ jobs:
     - name: Generate DEB package
       run: |
         cd build
-        cpack -G DEB
+        cpack --verbose
+        ls -la *.deb
         
     - name: Upload artifacts
       uses: actions/upload-artifact@v4
@@ -72,3 +64,4 @@ jobs:
         files: build/*.deb
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
