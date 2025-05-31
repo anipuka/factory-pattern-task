@@ -12,14 +12,20 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     
+    - name: Clean workspace
+      run: |
+        # Полная очистка предыдущих сборок
+        rm -rf build || true
+        mkdir -p build
+        
     - name: Install dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y build-essential cmake libgtest-dev googletest
+        sudo apt-get install -y build-essential cmake 
+        sudo apt-get install -y libgtest-dev googletest
         
     - name: Build Google Test
       run: |
-        sudo apt-get install -y libgtest-dev
         cd /usr/src/googletest
         sudo cmake .
         sudo make
@@ -27,15 +33,14 @@ jobs:
         
     - name: Configure CMake
       run: |
-        mkdir -p build
         cd build
-        cmake .. -DCMAKE_BUILD_TYPE=Release
-      
+        cmake .. -DCMAKE_BUILD_TYPE=Release --fresh
+        
     - name: Build project
       run: |
         cd build
         cmake --build . --config Release --parallel 2
-      
+        
     - name: Run tests
       run: |
         cd build
@@ -53,14 +58,10 @@ jobs:
         path: build/*.deb
         
     - name: Create Release
-      if: github.ref == 'refs/heads/master'
       uses: softprops/action-gh-release@v1
       with:
         files: build/*.deb
-        name: "Nightly Build (${{ github.sha }})"
-        body: "Automatic build from master branch\nCommit: ${{ github.sha }}"
-        draft: false
-        prerelease: false
-        generate_release_notes: true
+        name: "Build ${{ github.run_number }}"
+        body: "Automatic build\nCommit: ${{ github.sha }}"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
