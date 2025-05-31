@@ -56,12 +56,23 @@ jobs:
         name: factory-pattern-deb
         path: build/*.deb
         
+    - name: Create Tag
+      id: create-tag
+      run: |
+        TAG_NAME="nightly-$(date -u +'%Y%m%d-%H%M%S')"
+        echo "TAG_NAME=$TAG_NAME" >> $GITHUB_OUTPUT
+        git config --global user.name "GitHub Actions"
+        git config --global user.email "actions@github.com"
+        git tag -a "$TAG_NAME" -m "Nightly build $TAG_NAME"
+        git push origin "$TAG_NAME"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
     - name: Create Release
       uses: softprops/action-gh-release@v1
-      if: github.ref == 'refs/heads/master'
       with:
-        tag_name: "nightly-$(date +%Y%m%d%H%M%S)"
-        name: "Nightly Build $(date +'%Y-%m-%d %H:%M:%S')"
+        tag_name: ${{ steps.create-tag.outputs.TAG_NAME }}
+        name: "Nightly Build ${{ steps.create-tag.outputs.TAG_NAME }}"
         body: |
           Automatic nightly build
           Commit: ${{ github.sha }}
