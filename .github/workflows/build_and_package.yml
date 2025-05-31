@@ -1,9 +1,9 @@
-name: Build and Package
+kkname: Build and Package
 
 on:
   push:
-    tags:
-      - 'v*.*.*'  # Триггерим на теги вида v1.0.0
+    branches: [ master ]
+  pull_request:
     branches: [ master ]
 
 jobs:
@@ -26,6 +26,9 @@ jobs:
         sudo make
         sudo cp lib/*.a /usr/lib
         
+    - name: Clean build directory
+      run: rm -rf build || true
+      
     - name: Configure CMake
       run: |
         mkdir -p build
@@ -45,7 +48,8 @@ jobs:
     - name: Generate DEB package
       run: |
         cd build
-        cpack -G DEB
+        cpack --verbose
+        ls -la *.deb
         
     - name: Upload artifacts
       uses: actions/upload-artifact@v4
@@ -54,12 +58,11 @@ jobs:
         path: build/*.deb
         
     - name: Create Release
-      if: startsWith(github.ref, 'refs/tags/v')
-      uses: softprops/action-gh-release@v1
-      with:
-        files: build/*.deb
-        tag_name: ${{ github.ref_name }}
-        name: "Release ${{ github.ref_name }}"
-        body: "Factory Pattern DEB package"
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  if: github.ref == 'refs/heads/master'
+  uses: ncipollo/release-action@v1
+  with:
+    artifacts: "build/*.deb"
+    name: "Nightly Build"
+    body: "Automatic nightly build"
+  env:
+    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
