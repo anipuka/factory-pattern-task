@@ -31,8 +31,12 @@ jobs:
         sudo cmake --install build --prefix /usr/local
         sudo ldconfig
         
-    - name: Configure CMake
+    - name: Clean and Configure CMake
       run: |
+        # Очищаем предыдущие сборки
+        rm -rf build package
+        
+        # Создаем новую директорию сборки
         mkdir -p build
         cd build
         cmake .. -DCMAKE_BUILD_TYPE=Release
@@ -49,21 +53,25 @@ jobs:
         
     - name: Prepare Package Structure
       run: |
+        # Создаем структуру пакета
         mkdir -p package/usr/bin
         mkdir -p package/usr/lib
+        
+        # Копируем бинарные файлы
         cp build/character_demo package/usr/bin/
         cp build/libcharacter_factory.a package/usr/lib/
         
+        # Создаем control файл
         mkdir -p package/DEBIAN
         cat <<EOF > package/DEBIAN/control
-        Package: factory-pattern
-        Version: 1.0
-        Section: base
-        Priority: optional
-        Architecture: amd64
-        Maintainer: Your Name <your.email@example.com>
-        Description: Factory Pattern Example Implementation
-        EOF
+Package: factory-pattern
+Version: 1.0-$(date +%Y%m%d%H%M)
+Section: base
+Priority: optional
+Architecture: amd64
+Maintainer: anipuka <annakupina2006@yandex.ru>
+Description: Factory Pattern Example Implementation
+EOF
         
     - name: Build DEB Package
       run: |
@@ -80,5 +88,7 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         files: factory-pattern.deb
+        tag_name: v1.0-$(date +%Y%m%d%H%M)
+        body: "Automatic build of factory pattern implementation"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
