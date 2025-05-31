@@ -28,16 +28,20 @@ jobs:
         sudo cp -r googletest/include/gtest /usr/include
         sudo cp -r googlemock/include/gmock /usr/include
         
-    - name: Configure CMake with CPack settings
+    - name: Clean and prepare build directory
       run: |
-        mkdir -p build
+        rm -rf build
+        mkdir build
+        
+    - name: Configure CMake
+      run: |
         cd build
         cmake .. \
           -DCMAKE_BUILD_TYPE=Release \
-          -DCPACK_PACKAGE_NAME="factory-pattern" \
-          -DCPACK_PACKAGE_VERSION="1.0.0" \
-          -DCPACK_PACKAGE_CONTACT="admin@example.com" \
-          -DCPACK_DEBIAN_PACKAGE_MAINTAINER="Package Maintainer <maintainer@example.com>" \
+          -DCPACK_PACKAGE_NAME=factory-pattern \
+          -DCPACK_PACKAGE_VERSION=1.0.0 \
+          -DCPACK_PACKAGE_VENDOR="Your Name" \
+          -DCPACK_DEBIAN_PACKAGE_MAINTAINER="Maintainer <maintainer@example.com>" \
           -DCPACK_DEBIAN_PACKAGE_DEPENDS="libc6 (>= 2.31)"
       
     - name: Build project
@@ -53,7 +57,7 @@ jobs:
     - name: Generate DEB package
       run: |
         cd build
-        cpack -G DEB --config CPackConfig.cmake
+        cpack -G DEB
         
     - name: Upload artifacts
       uses: actions/upload-artifact@v4
