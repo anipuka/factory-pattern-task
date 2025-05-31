@@ -3,8 +3,7 @@ name: Build and Package
 on:
   push:
     branches: [ master ]
-  pull_request:
-    branches: [ master ]
+  workflow_dispatch:
 
 jobs:
   build:
@@ -26,9 +25,6 @@ jobs:
         sudo make
         sudo cp lib/*.a /usr/lib
         
-    - name: Clean build directory
-      run: rm -rf build || true
-      
     - name: Configure CMake
       run: |
         mkdir -p build
@@ -48,8 +44,7 @@ jobs:
     - name: Generate DEB package
       run: |
         cd build
-        cpack --verbose
-        ls -la *.deb
+        cpack -G DEB
         
     - name: Upload artifacts
       uses: actions/upload-artifact@v4
@@ -59,10 +54,13 @@ jobs:
         
     - name: Create Release
       if: github.ref == 'refs/heads/master'
-      uses: ncipollo/release-action@v1
+      uses: softprops/action-gh-release@v1
       with:
-        artifacts: "build/*.deb"
-        name: "Nightly Build"
-        body: "Automatic nightly build"
+        files: build/*.deb
+        name: "Nightly Build (${{ github.sha }})"
+        body: "Automatic build from master branch\nCommit: ${{ github.sha }}"
+        draft: false
+        prerelease: false
+        generate_release_notes: true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
