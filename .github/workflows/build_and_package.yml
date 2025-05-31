@@ -5,6 +5,9 @@ on:
     branches: [ master ]
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-22.04
@@ -54,17 +57,18 @@ jobs:
         path: build/*.deb
         
     - name: Create Release
-      uses: actions/create-release@v1
+      uses: softprops/action-gh-release@v1
       if: github.ref == 'refs/heads/master'
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: nightly-${{ github.sha }}
-        release_name: "Nightly Build ${{ github.run_number }}"
+        tag_name: "nightly-$(date +%Y%m%d%H%M%S)"
+        name: "Nightly Build $(date +'%Y-%m-%d %H:%M:%S')"
         body: |
           Automatic nightly build
           Commit: ${{ github.sha }}
-          Date: ${{ github.event.head_commit.timestamp }}
+          Workflow: ${{ github.run_id }}
         draft: false
         prerelease: true
-        artifacts: build/*.deb
+        files: |
+          build/*.deb
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
