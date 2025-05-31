@@ -1,0 +1,2 @@
+/usr/bin/ar qc libfactory_pattern.a  CMakeFiles/factory_pattern.dir/src/Character.cpp.o CMakeFiles/factory_pattern.dir/src/CharacterFactory.cpp.o CMakeFiles/factory_pattern.dir/src/Dragon.cpp.o CMakeFiles/factory_pattern.dir/src/Orc.cpp.o CMakeFiles/factory_pattern.dir/src/Player.cpp.o
+/usr/bin/ranlib libfactory_pattern.a

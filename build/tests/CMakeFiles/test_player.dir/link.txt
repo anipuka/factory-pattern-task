@@ -1,0 +1,1 @@
+/usr/bin/c++     CMakeFiles/test_player.dir/test_player.cpp.o  -o test_player  ../libfactory_pattern.a /usr/lib/x86_64-linux-gnu/libgtest_main.a /usr/lib/x86_64-linux-gnu/libgtest.a -lpthread 

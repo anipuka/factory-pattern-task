@@ -1,0 +1,1 @@
+/usr/bin/c++     CMakeFiles/test_character.dir/test_character.cpp.o  -o test_character  ../libfactory_pattern.a /usr/lib/x86_64-linux-gnu/libgtest_main.a /usr/lib/x86_64-linux-gnu/libgtest.a -lpthread 

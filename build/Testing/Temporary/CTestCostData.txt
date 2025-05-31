@@ -1,0 +1,6 @@
+test_character 1 0.00359565
+test_factory 1 0.00357547
+test_player 1 0.00485159
+test_orc 1 0.003307
+test_dragon 1 0.00355831
+---

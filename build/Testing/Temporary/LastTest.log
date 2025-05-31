@@ -1,0 +1,141 @@
+Start testing: May 31 20:25 MSK
+----------------------------------------------------------
+1/5 Testing: test_character
+1/5 Test: test_character
+Command: "/home/anipuka/factory-pattern-task/build/tests/test_character"
+Directory: /home/anipuka/factory-pattern-task/build/tests
+"test_character" start time: May 31 20:25 MSK
+Output:
+----------------------------------------------------------
+Running main() from /build/googletest-j5yxiC/googletest-1.10.0/googletest/src/gtest_main.cc
+[==========] Running 2 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 2 tests from CharacterTest
+[ RUN      ] CharacterTest.NameGetterSetter
+[       OK ] CharacterTest.NameGetterSetter (0 ms)
+[ RUN      ] CharacterTest.DamageGetterSetter
+[       OK ] CharacterTest.DamageGetterSetter (0 ms)
+[----------] 2 tests from CharacterTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 2 tests from 1 test suite ran. (0 ms total)
+[  PASSED  ] 2 tests.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"test_character" end time: May 31 20:25 MSK
+"test_character" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/5 Testing: test_factory
+2/5 Test: test_factory
+Command: "/home/anipuka/factory-pattern-task/build/tests/test_factory"
+Directory: /home/anipuka/factory-pattern-task/build/tests
+"test_factory" start time: May 31 20:25 MSK
+Output:
+----------------------------------------------------------
+Running main() from /build/googletest-j5yxiC/googletest-1.10.0/googletest/src/gtest_main.cc
+[==========] Running 4 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 4 tests from FactoryTest
+[ RUN      ] FactoryTest.CreatePlayer
+[       OK ] FactoryTest.CreatePlayer (0 ms)
+[ RUN      ] FactoryTest.CreateOrc
+[       OK ] FactoryTest.CreateOrc (0 ms)
+[ RUN      ] FactoryTest.CreateDragon
+[       OK ] FactoryTest.CreateDragon (0 ms)
+[ RUN      ] FactoryTest.CreateInvalidType
+[       OK ] FactoryTest.CreateInvalidType (0 ms)
+[----------] 4 tests from FactoryTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 4 tests from 1 test suite ran. (0 ms total)
+[  PASSED  ] 4 tests.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"test_factory" end time: May 31 20:25 MSK
+"test_factory" time elapsed: 00:00:00
+----------------------------------------------------------
+
+3/5 Testing: test_player
+3/5 Test: test_player
+Command: "/home/anipuka/factory-pattern-task/build/tests/test_player"
+Directory: /home/anipuka/factory-pattern-task/build/tests
+"test_player" start time: May 31 20:25 MSK
+Output:
+----------------------------------------------------------
+Running main() from /build/googletest-j5yxiC/googletest-1.10.0/googletest/src/gtest_main.cc
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from PlayerTest
+[ RUN      ] PlayerTest.AttackOutput
+[       OK ] PlayerTest.AttackOutput (2 ms)
+[----------] 1 test from PlayerTest (2 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (2 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"test_player" end time: May 31 20:25 MSK
+"test_player" time elapsed: 00:00:00
+----------------------------------------------------------
+
+4/5 Testing: test_orc
+4/5 Test: test_orc
+Command: "/home/anipuka/factory-pattern-task/build/tests/test_orc"
+Directory: /home/anipuka/factory-pattern-task/build/tests
+"test_orc" start time: May 31 20:25 MSK
+Output:
+----------------------------------------------------------
+Running main() from /build/googletest-j5yxiC/googletest-1.10.0/googletest/src/gtest_main.cc
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from OrcTest
+[ RUN      ] OrcTest.AttackOutput
+[       OK ] OrcTest.AttackOutput (0 ms)
+[----------] 1 test from OrcTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"test_orc" end time: May 31 20:25 MSK
+"test_orc" time elapsed: 00:00:00
+----------------------------------------------------------
+
+5/5 Testing: test_dragon
+5/5 Test: test_dragon
+Command: "/home/anipuka/factory-pattern-task/build/tests/test_dragon"
+Directory: /home/anipuka/factory-pattern-task/build/tests
+"test_dragon" start time: May 31 20:25 MSK
+Output:
+----------------------------------------------------------
+Running main() from /build/googletest-j5yxiC/googletest-1.10.0/googletest/src/gtest_main.cc
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from DragonTest
+[ RUN      ] DragonTest.AttackOutput
+[       OK ] DragonTest.AttackOutput (0 ms)
+[----------] 1 test from DragonTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"test_dragon" end time: May 31 20:25 MSK
+"test_dragon" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: May 31 20:25 MSK

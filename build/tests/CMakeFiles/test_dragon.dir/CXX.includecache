@@ -1,0 +1,24 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/anipuka/factory-pattern-task/src/Character.h
+string
+-
+
+/home/anipuka/factory-pattern-task/src/Dragon.h
+Character.h
+/home/anipuka/factory-pattern-task/src/Character.h
+
+/home/anipuka/factory-pattern-task/tests/test_dragon.cpp
+gtest/gtest.h
+/home/anipuka/factory-pattern-task/tests/gtest/gtest.h
+../src/Dragon.h
+/home/anipuka/factory-pattern-task/src/Dragon.h
+../src/Character.h
+/home/anipuka/factory-pattern-task/src/Character.h
+

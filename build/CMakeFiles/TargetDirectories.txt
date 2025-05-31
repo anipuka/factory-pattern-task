@@ -1,0 +1,13 @@
+/home/anipuka/factory-pattern-task/build/CMakeFiles/rebuild_cache.dir
+/home/anipuka/factory-pattern-task/build/CMakeFiles/edit_cache.dir
+/home/anipuka/factory-pattern-task/build/CMakeFiles/test.dir
+/home/anipuka/factory-pattern-task/build/CMakeFiles/factory_pattern_exe.dir
+/home/anipuka/factory-pattern-task/build/CMakeFiles/factory_pattern.dir
+/home/anipuka/factory-pattern-task/build/tests/CMakeFiles/rebuild_cache.dir
+/home/anipuka/factory-pattern-task/build/tests/CMakeFiles/edit_cache.dir
+/home/anipuka/factory-pattern-task/build/tests/CMakeFiles/test.dir
+/home/anipuka/factory-pattern-task/build/tests/CMakeFiles/test_dragon.dir
+/home/anipuka/factory-pattern-task/build/tests/CMakeFiles/test_orc.dir
+/home/anipuka/factory-pattern-task/build/tests/CMakeFiles/test_player.dir
+/home/anipuka/factory-pattern-task/build/tests/CMakeFiles/test_factory.dir
+/home/anipuka/factory-pattern-task/build/tests/CMakeFiles/test_character.dir
